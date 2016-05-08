@@ -23,7 +23,6 @@ void copyFile(char* filepath, char* newpath){
   while((c = fgetc(oldf)) != EOF) {
     fputc(c, newf);
   }
-
 }
 
 void moveFile(char* filepath,char* newpath){
@@ -33,7 +32,7 @@ void moveFile(char* filepath,char* newpath){
 
 void renameFile(char* filepath, char* newName){
   // i will implement that
-  moveFile(filepath,newName);
+  moveFile(filepath, newName);
 }
 
 void appendTextEnd(char* filepath, char* text){
@@ -50,11 +49,12 @@ void removeAllText(char* filepath){
 }
 
 void readPages(char* filepath, int pages){
-
+  // easy one :D
 }
 
 void fimanuCLI()
 {
+  // do not touch
   // I will implement that
 }
 
