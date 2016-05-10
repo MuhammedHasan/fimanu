@@ -36,16 +36,42 @@ void renameFile(char* filepath, char* newName){
 }
 
 void appendTextEnd(char* filepath, char* text){
-  // open with append mode
+	FILE *f;
+	f = fopen(filepath, "a");
+	fputs(text, f);
+	fclose(f);
 }
 
-void appendPosition(char* filepath, char* text){
-  // read all then write until position then write text
-  // then contuni to write readed text
+void appendPosition(char* filepath, char* text, int position){
+	FILE *f;
+	f = fopen(filepath, "r");
+
+  fseek(f, 0, SEEK_END);
+	size_t length = ftell(f);
+  fseek(f, 0, SEEK_SET);
+
+  char current[length];
+  char c;
+  int count = 0;
+
+  while((c = fgetc(f)) != EOF) {
+    current[count] = c;
+    count++;
+  }
+	fclose(f);
+
+  f = fopen(filepath, "w");
+  //write until position
+  //write text
+  //write from position
+  fclose(f);
 }
 
 void removeAllText(char* filepath){
-  // write empty char like ''
+	FILE *f;
+	f =  fopen(filepath,"w");
+	fputs("", f);
+	fclose(f);
 }
 
 void readPages(char* filepath, int pages){
