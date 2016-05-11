@@ -42,29 +42,41 @@ void appendTextEnd(char* filepath, char* text){
 	fclose(f);
 }
 
-void appendPosition(char* filepath, char* text, int position){
+int appendPosition(char* filepath, char* text, int position){
 	FILE *f;
 	f = fopen(filepath, "r");
-
   fseek(f, 0, SEEK_END);
 	size_t length = ftell(f);
   fseek(f, 0, SEEK_SET);
 
-  char current[length];
-  char c;
-  int count = 0;
+  if (length < position){
+    return -1; //given position is less than length of file
+  }
+  if (position < 0){
+    return -2; //position is less than zero
+  }
+  
+  char current[length], c;
+  int count;
 
-  while((c = fgetc(f)) != EOF) {
+  for(count=0; (c = fgetc(f)) != EOF; ++count){
     current[count] = c;
-    count++;
   }
 	fclose(f);
 
-  f = fopen(filepath, "w");
-  //write until position
-  //write text
-  //write from position
+  f = fopen(filepath, "w+");
+  for(count=0; position > count; ++count){
+    fputc(current[count], f);
+  }
+  for(count=0; text[count]!='\0'; ++count){
+    fputc(text[count], f);
+  }
+  for(count=position; count<length; ++count){
+    fputc(current[count], f);
+  }
   fclose(f);
+
+  return 0;
 }
 
 void removeAllText(char* filepath){
@@ -85,8 +97,5 @@ void fimanuCLI()
 }
 
 int main() {
-
-  fimanuCLI();
-
-  return 0;
+  appendPosition("text.txt","ccc", 4);
 }
