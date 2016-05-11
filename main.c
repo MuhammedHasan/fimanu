@@ -55,7 +55,7 @@ int appendPosition(char* filepath, char* text, int position){
   if (position < 0){
     return -2; //position is less than zero
   }
-  
+
   char current[length], c;
   int count;
 
@@ -87,7 +87,22 @@ void removeAllText(char* filepath){
 }
 
 void readPages(char* filepath, int pages){
-  // easy one :D
+  FILE *f;
+  char c;
+  int count = 0;
+  f = fopen(filepath, "r");
+
+  while((c = fgetc(f)) != EOF) {
+    printf("%c", c);
+    if(c == '\n'){
+      count++;
+      if (count == pages){
+        getchar();
+        count = 0;
+      }
+    }
+  }
+  fclose(f);
 }
 
 void fimanuCLI()
@@ -97,5 +112,8 @@ void fimanuCLI()
 }
 
 int main() {
-  appendPosition("text.txt","ccc", 4);
+
+  fimanuCLI();
+
+  return 0;
 }
