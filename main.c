@@ -118,10 +118,10 @@ int removeAllText(char* filepath){
         return 0;
 }
 
-int readPages(char* filepath, int pages){
+int readPages(char filepath[], int pages){
         FILE *f;
         char c;
-        int count = 0;
+        int count1 = 0;
         if(!(f = fopen(filepath, "r"))) {
                 printf("%s\n", "File do not exist");
                 return -1;
@@ -129,11 +129,16 @@ int readPages(char* filepath, int pages){
 
         while((c = fgetc(f)) != EOF) {
                 printf("%c", c);
+
                 if(c == '\n') {
-                        count++;
-                        if (count == pages) {
-                                getchar();
-                                count = 0;
+                        if (++count1 == pages) {
+                                do {
+                                        char p;
+                                        p = getchar();
+                                        if (p == 'n')
+                                                break;
+                                } while(1);
+                                count1 = 0;
                         }
                 }
         }
@@ -240,8 +245,6 @@ int fimanuCLI()
                 printf("%s", "file path >");
                 scanf("%s", param1);
 
-                int param3;
-
                 printf("%s", "number of pages >");
                 scanf("%d", &param3);
 
@@ -257,6 +260,9 @@ int fimanuCLI()
                 printf("%s\n", "appendPosition \n\t this command append text to given position of file \n");
                 printf("%s\n", "removeAllText \n\t this command remove all text \n");
                 printf("%s\n", "readPages \n\t this command print file as given pages \n");
+        }
+        else{
+                printf("No command like that place check help if you need...\n");
         }
         return 0;
 }
