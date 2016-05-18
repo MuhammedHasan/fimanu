@@ -12,6 +12,11 @@ int createFile(char filepath[], char fileContent[]){
 }
 
 int removeFile(char* filepath){
+        FILE *f;
+        if(!(f =  fopen(filepath,"rb"))) {
+                printf("%s\n", "File do not exist");
+                return -1;
+        }
         return remove(filepath);
 }
 
@@ -38,7 +43,6 @@ int copyFile(char* filepath, char* newpath){
 
 int moveFile(char* filepath, char* newpath){
         if(copyFile(filepath, newpath) != 0) {
-                printf("%s\n", "File do not exist");
                 return -1;
         }
         removeFile(filepath);
@@ -251,15 +255,15 @@ int fimanuCLI()
                 return readPages(param1,param3);
         }
         else if(!strcmp(userCommmand,"help")) {
-                printf("%s\n", "createFile \n\t this command create file \n");
-                printf("%s\n", "removeFile \n\t this command remove file \n");
-                printf("%s\n", "copyFile \n\t this command copy file \n");
-                printf("%s\n", "moveFile \n\t this command move file \n");
-                printf("%s\n", "renameFile \n\t this command rename file \n");
-                printf("%s\n", "appendTextEnd \n\t this command append text to end of file \n");
-                printf("%s\n", "appendPosition \n\t this command append text to given position of file \n");
-                printf("%s\n", "removeAllText \n\t this command remove all text \n");
-                printf("%s\n", "readPages \n\t this command print file as given pages \n");
+                printf("%s\n", "createFile \n\t this command creates file \n");
+                printf("%s\n", "removeFile \n\t this command removes file \n");
+                printf("%s\n", "copyFile \n\t this command copies file \n");
+                printf("%s\n", "moveFile \n\t this command moves file \n");
+                printf("%s\n", "renameFile \n\t this command renames file \n");
+                printf("%s\n", "appendTextEnd \n\t this command appends text to end of file if file do not exist it will create a new one.\n");
+                printf("%s\n", "appendPosition \n\t this command appends text to given position of file \n");
+                printf("%s\n", "removeAllText \n\t this command removes all text \n");
+                printf("%s\n", "readPages \n\t this command prints file as given pages \n");
         }
         else{
                 printf("No command like that place check help if you need...\n");
