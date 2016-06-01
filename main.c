@@ -24,6 +24,11 @@ int copyFile(char* filepath, char* newpath){
 
         FILE *oldf, *newf;
 
+        if(!strcmp(filepath,newpath)){
+          printf("%s\n", "You cannot copy file same place");
+          return -1;
+        }
+
         if(!(oldf =  fopen(filepath,"rb"))) {
                 printf("%s\n", "File do not exist");
                 return -1;
